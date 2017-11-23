@@ -3,3 +3,10 @@
 
 # vim
 *.swp
+
+# Binaries
+portspec
+portspec.exe
+
+# Example Configuration File
+conf.yml
