@@ -24,9 +24,10 @@ func notifyForHost(host string, desiredPorts, openPorts []int) {
 		[]string{conf.AlertEmail},
 		[]byte(
 			fmt.Sprintf(
-				"From: PortSpec <%s>\r\nTo:%s\r\nSubject: PortSpec Alert\r\n\r\nHost: %s\r\nDesired Ports: %v\r\nOpen Ports: %v\r\nTime: %d %s %d %d:%d:%d\r\n",
+				"From: PortSpec <%s>\r\nTo:%s\r\nSubject: PortSpec Alert [%s]\r\n\r\nHost: %s\r\nDesired Ports: %v\r\nOpen Ports: %v\r\nTime: %d %s %d %d:%d:%d\r\n",
 				conf.FromEmail,
 				conf.AlertEmail,
+				host,
 				host,
 				desiredPorts,
 				openPorts,
