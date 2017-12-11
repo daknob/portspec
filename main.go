@@ -10,6 +10,10 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+var (
+	conf config
+)
+
 func main() {
 
 	/* Check log output type */
@@ -35,7 +39,7 @@ func main() {
 	/* Parse Configuration File */
 	log.Printf("Parsing Configuration File...")
 
-	conf := config{}
+	conf = config{}
 
 	confbytes, err := ioutil.ReadFile(*configPath)
 	if err != nil {
@@ -76,6 +80,13 @@ func main() {
 		log.Fatalf("There must be at least one scan set in the configuration file.")
 	}
 
+	/* Check e-mail settings */
+	if conf.SendEmail == true {
+		if conf.SMTPServer == "" || conf.SMTPPort == 0 || conf.SMTPUsername == "" || conf.SMTPPassword == "" || conf.AlertEmail == "" || conf.FromEmail == "" {
+			log.Fatalf("E-Mail notifications are enabled but SMTP is not fully configured.")
+		}
+	}
+
 	/* Convert Interval to Time.Duration */
 	inter, err := time.ParseDuration(fmt.Sprintf("%ds", conf.Interval))
 	if err != nil {
@@ -85,7 +96,7 @@ func main() {
 	/* Main Loop that runs the Port Scans */
 	for {
 		log.Printf("Running full port scan against all hosts...")
-		go fullScan(conf)
+		go fullScan()
 		time.Sleep(inter)
 	}
 }
