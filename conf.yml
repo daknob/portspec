@@ -7,6 +7,15 @@ ipv6: true
 # Parallel Port Scans (Currently Not Supported)
 parallelscans: 10
 
+# E-Mail Notifications
+sendemail: true
+smtpserver: "smtp.example.com"
+smtpport: 587
+smtpusername: "example"
+smtppassword: "secretpassword"
+alertemail: "security@example.com"
+fromemail: "portspec@example.com"
+
 # Hosts
 hosts:
     "www.example.org":
