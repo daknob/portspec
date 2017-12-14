@@ -15,13 +15,13 @@ more needs.
 
 ## Configuration
 
-PortSpec is configured solely by the `conf.yaml` file. The path of this file
+PortSpec is configured solely by the `conf.yml` file. The path of this file
 can be specified by the `-c` command line flag. So if you launch it with
-`portspec -c /etc/portspec/portspec.yaml`, it will read the configuration from
+`portspec -c /etc/portspec/portspec.yml`, it will read the configuration from
 there. You can have multiple instances of PortSpec running with different
 configuration files, in the same server, without issues.
 
-The included `conf.yaml` contains an example configuration file. Some of the
+The included `conf.yml` contains an example configuration file. Some of the
 included options can be found here:
 
 ### interval
@@ -85,7 +85,7 @@ section you can find configuration options for each implemented module.
 
 E-Mail is the most basic alert method and will cause PortSpec to send an e-mail
 to a set of specified e-mail addresses. To configure e-mail, you will need to
-add to the `conf.yaml` the following:
+add to the `conf.yml` the following:
 
 #### sendemail
 
