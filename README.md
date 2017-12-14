@@ -130,3 +130,27 @@ The `fromemail` setting contains the e-mail address all alerts will be sent as.
 This value will be sent to the mail server as well as be included in the `From`
 header of the e-mail. You can currently only control the e-mail address, and
 not the name. This is currently hardcoded as `PortSpec`.
+
+## Logs
+
+Currently PortSpec tries to produce a large amount of logs. This is done so you
+can go back and check for information that may be useful at some point in the
+future. Great care has been given to ensure no private information is being
+logged, other than user provided values such as hosts and IP Addresses.
+
+The framework utilized for logging supports two modes, one that will output
+data as human readable format, which is common for other services, such as web
+servers, mail servers, etc. and an other that will output all logs in JSON, to
+be used directly with a log processing tool of your choice. A third format is
+available that is used when PortSpec runs in a terminal, and also supports
+colors for greater visibility.
+
+By default the first option is used, but you can switch between them using
+command line flags. The `-j` flag will cause PortSpec to output JSON. This
+option is not configurable using the config file to ensure that all logs, such
+as configuration file parsing errors, are in the same format. This hopefully
+minimizes parsing errors.
+
+PortSpec logs to the Standard Output (`stdout`), so redirection or a proper
+daemon handling system is needed to save the logs to files. For example,
+`systemd` will save `stdout` to `/var/log/syslog`.
