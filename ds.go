@@ -14,6 +14,6 @@ type config struct {
 	SMTPPort      int              `yaml:"smtpport"`
 	SMTPUsername  string           `yaml:"smtpusername"`
 	SMTPPassword  string           `yaml:"smtppassword"`
-	AlertEmail    string           `yaml:"alertemail"`
+	AlertEmail    []string         `yaml:"alertemail"`
 	FromEmail     string           `yaml:"fromemail"`
 }

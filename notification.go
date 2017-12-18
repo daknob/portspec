@@ -17,17 +17,18 @@ func notifyForHost(host string, desiredPorts, openPorts []int) {
 
 	if conf.SendEmail == true {
 		auth := smtp.PlainAuth("", conf.SMTPUsername, conf.SMTPPassword, conf.SMTPServer)
-		
+
+		for _, mail := range conf.AlertEmail {
 			err := smtp.SendMail(
 				fmt.Sprintf("%s:%d", conf.SMTPServer, conf.SMTPPort),
 				auth,
 				conf.FromEmail,
-				[]string{conf.AlertEmail},
+				[]string{mail},
 				[]byte(
 					fmt.Sprintf(
 						"From: PortSpec <%s>\r\nTo:%s\r\nSubject: PortSpec Alert [%s]\r\n\r\nHost: %s\r\nDesired Ports: %v\r\nOpen Ports: %v\r\nTime: %d %s %d %d:%d:%d\r\n",
 						conf.FromEmail,
-						conf.AlertEmail,
+						mail,
 						host,
 						host,
 						desiredPorts,
@@ -41,10 +42,12 @@ func notifyForHost(host string, desiredPorts, openPorts []int) {
 					),
 				),
 			)
-		
+
 			if err != nil {
-				log.Errorf("Failed to send e-mail to %s about host %s: %s", conf.AlertEmail, host, err.Error())
+				log.Errorf("Failed to send e-mail to %s about host %s: %s", mail, host, err.Error())
 			}
+		}
+
 	}
-	
+
 }

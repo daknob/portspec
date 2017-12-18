@@ -82,7 +82,7 @@ func main() {
 
 	/* Check e-mail settings */
 	if conf.SendEmail == true {
-		if conf.SMTPServer == "" || conf.SMTPPort == 0 || conf.SMTPUsername == "" || conf.SMTPPassword == "" || conf.AlertEmail == "" || conf.FromEmail == "" {
+		if conf.SMTPServer == "" || conf.SMTPPort == 0 || conf.SMTPUsername == "" || conf.SMTPPassword == "" || len(conf.AlertEmail) == 0 || conf.FromEmail == "" {
 			log.Fatalf("E-Mail notifications are enabled but SMTP is not fully configured.")
 		}
 	}
