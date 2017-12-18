@@ -13,7 +13,9 @@ smtpserver: "smtp.example.com"
 smtpport: 587
 smtpusername: "example"
 smtppassword: "secretpassword"
-alertemail: "security@example.com"
+alertemail:
+    - "security@example.com"
+    - "admin@example.net"
 fromemail: "portspec@example.com"
 
 # Hosts
