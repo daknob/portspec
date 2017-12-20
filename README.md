@@ -154,3 +154,26 @@ minimizes parsing errors.
 PortSpec logs to the Standard Output (`stdout`), so redirection or a proper
 daemon handling system is needed to save the logs to files. For example,
 `systemd` will save `stdout` to `/var/log/syslog`.
+
+## Installation
+
+PortSpec runs as a daemon, and must be running continuously. This can be done
+in any way you want, such as a supervisor like `supervisord`, but for
+distributions with `systemd`, this method is the one recommended. In this
+repository you can find the `portspec.service` file. This is a `systemd` unit
+file you can place to `/etc/systemd/system/` in order for Linux to recognize as
+a service.
+
+After you install this unit file, you need to run:
+
+```
+sudo systemctl enable portspec
+```
+
+This will enable the `portspec` service and will have it execute at system
+boot. In order to start the service, you can use `sudo service portspec start`,
+and to stop it, use `sudo service portspec stop`. 
+
+**WARNING**: The current version of this `systemd` unit will cause the
+`portspec` to be run as `root`. This is not something you want. An update is
+coming very soon to allow it to drop privileges to the `portspec` user.
