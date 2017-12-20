@@ -157,6 +157,9 @@ daemon handling system is needed to save the logs to files. For example,
 
 ## Installation
 
+To download and install PortSpec, either clone this repository and use Go to
+build the executable, or download one of the prebuilt binaries.
+
 PortSpec runs as a daemon, and must be running continuously. This can be done
 in any way you want, such as a supervisor like `supervisord`, but for
 distributions with `systemd`, this method is the one recommended. In this
@@ -174,6 +177,38 @@ This will enable the `portspec` service and will have it execute at system
 boot. In order to start the service, you can use `sudo service portspec start`,
 and to stop it, use `sudo service portspec stop`. 
 
-**WARNING**: The current version of this `systemd` unit will cause the
-`portspec` to be run as `root`. This is not something you want. An update is
-coming very soon to allow it to drop privileges to the `portspec` user.
+Now you need to save the configuration file somewhere. The recommended path is
+`/etc/portspec/portspec.yml`. Since this directory does not exist in your
+system, you need to create it:
+
+```
+sudo mkdir /etc/portspec
+```
+
+Now either copy `conf.yml` from this repository, or start a new one from
+scratch.
+
+By default, `systemd` units are running as `root`. This is something you do not
+want in your server, since this code may not be trusted, and in general you
+should avoid running things as a privileged account. For this reason, you need
+to create a `portspec` user for your system:
+
+```
+sudo adduser -s /usr/sbin/nologin -r -M portspec
+```
+
+Now that you have the `portspec` user, go and change the `/etc/portspec` folder
+owner to this user:
+
+```
+sudo chown -R portspec:portspec /etc/portspec
+```
+
+Finally, make sure this file is only readable by the `portspec` user:
+
+```
+sudo chmod 600 /etc/portspec/portspec.yml
+```
+
+This is recommended since the configuration file may contain sensitive
+information such as e-mail passwords, or API keys.
