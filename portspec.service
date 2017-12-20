@@ -1,0 +1,11 @@
+[Unit]
+Description=PortSpec Port Scanner
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/portspec -c /etc/portspec/portspec.yml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
